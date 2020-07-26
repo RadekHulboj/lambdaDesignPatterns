@@ -1,4 +1,6 @@
-package cookbook;
+package cookbook.retry;
+
+import common.ISneakyThrower;
 
 import java.util.ArrayList;
 import java.util.Arrays;

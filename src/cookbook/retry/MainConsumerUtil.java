@@ -1,4 +1,4 @@
-package cookbook;
+package cookbook.retry;
 
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
