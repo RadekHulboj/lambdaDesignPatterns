@@ -14,15 +14,16 @@ public class MainVisitor {
         Wheel wheel = new Wheel();
         Saddle saddle = new Saddle();
 
-        Consumer<VisitorBuilder<String>> consumer = Visitor.<String>visit()
+        Consumer<VisitorBuilder<String>> builderConsumer = Visitor.<String>build()
                 .forType(Wheel.class).visitation(e -> "Visiting engine" + e)
                 .forType(Saddle.class).visitation(b -> "Visiting body" + b)
                 .forType(Bicycle.class).visitation(c -> "Visiting car" + c);
 
-        Visitor<String> visitor = Visitor.of(consumer);
+        Visitor<String> visitor = Visitor.of(builderConsumer);
 
         String strWheel = visitor.visit(wheel);
         System.out.println("Wheel: " + strWheel);
+
         String strBicycle = visitor.visit(bicycle);
         System.out.println("Bicycle: " + strBicycle);
         String strSaddle = visitor.visit(saddle);
