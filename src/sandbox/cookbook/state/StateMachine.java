@@ -9,8 +9,8 @@ public interface StateMachine {
 
     static StateMachine build(Consumer<StateBuilder> consumer) {
         HashMap<Integer, String> map = new HashMap<>();
-        consumer.accept((key, value) -> {
-            map.put(key, value);
+        consumer.accept((e, s) -> {
+            map.put(e, s);
         });
         return evNumber -> map.get(evNumber);
     }
