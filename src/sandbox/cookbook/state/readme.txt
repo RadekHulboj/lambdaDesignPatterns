@@ -6,5 +6,5 @@ ustawimy currentState dla nastpnego eventu
 Wtedy ustawimy poprawne dzialanie maszyny stanow i nie dzialanie w przypadku gdy event nie moze sie na tym
 stanie odbyc.
 3)
-Z ta technika stan bierzacy maszyny stanow jest tak naprawde przymany u callera czyli u klienta, tu trzeba bedzie sie zastanowic
-jak to przerzucic do maszyny stanow. To bedzie trudne zadanie.
+Z ta technika stan biezacy maszyny stanow jest tak naprawde trzymany u callera czyli u klienta, tu trzeba bedzie sie zastanowic
+jak przerzucic to do wewnatrz maszyny stanow. To bedzie trudne zadanie.
