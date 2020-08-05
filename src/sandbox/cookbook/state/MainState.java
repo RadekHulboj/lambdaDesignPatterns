@@ -17,9 +17,9 @@ public class MainState {
     private static void mainTry() {
 
         Consumer<StateBuilder<Long, String>> transition = StateMachine
-                .init(1L, "init")
-                .transition(2L, "Run")
-                .transition(3L, "Stop");
+                .init(1L, "INIT", MainState::accept)
+                .transition(2L, "RUN", MainState::accept)
+                .transition(3L, "STOP", MainState::accept);
 
         StateMachine<Long, String> sm = StateMachine.build(transition);
 
@@ -27,9 +27,9 @@ public class MainState {
     }
 
     private static void analyzeTry() {
-        Consumer<StateBuilder<Integer, String>> consumer = stateBuilder -> stateBuilder.register(1, "one");
+        Consumer<StateBuilder<Integer, String>> consumer = stateBuilder -> stateBuilder.register(1, "one", s -> System.out.println("ss"));
         HashMap<Integer, String> map = new HashMap<>();
-        StateBuilder<Integer, String> stateBuilder = (event, state) -> map.put(event, state);
+        StateBuilder<Integer, String> stateBuilder = (event, state, f) -> map.put(event, state);
         consumer.accept(stateBuilder);
     }
 
@@ -38,5 +38,9 @@ public class MainState {
         State<String> closures = State.init("Ala");
         closures.setState("state1")
                 .setState("state2");
+    }
+
+    private static void accept(String s) {
+        System.out.println("event function on state:" + s);
     }
 }
