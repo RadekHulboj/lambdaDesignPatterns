@@ -1,22 +1,20 @@
 package sandbox.cookbook.state;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class MainState {
 
     public static void main(String[] args) {
-        firstTry();
         mainTry();
+
+        // only for analyze
+        firstTry();
         analyzeTry();
-
-    }
-
-    private static void analyzeTry() {
-        Consumer<StateBuilder> consumer = stateBuilder -> stateBuilder.register(1, "one");
-        HashMap<Integer, String> map = new HashMap<>();
-        StateBuilder stateBuilder = (event, state) -> map.put(event, state);
-        consumer.accept(stateBuilder);
     }
 
     private static void mainTry() {
@@ -27,8 +25,14 @@ public class MainState {
 
         StateMachine sm = StateMachine.build(transition);
 
-        String event = sm.event(3);
-        System.out.println(event);
+        Arrays.asList(1,2,3).forEach(i -> System.out.println(sm.event(i)));
+    }
+
+    private static void analyzeTry() {
+        Consumer<StateBuilder> consumer = stateBuilder -> stateBuilder.register(1, "one");
+        HashMap<Integer, String> map = new HashMap<>();
+        StateBuilder stateBuilder = (event, state) -> map.put(event, state);
+        consumer.accept(stateBuilder);
     }
 
     private static void firstTry() {
