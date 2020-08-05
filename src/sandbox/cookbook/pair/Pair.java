@@ -1,4 +1,9 @@
 package sandbox.cookbook.pair;
 
-public class Pair {
+import java.util.HashMap;
+import java.util.Map;
+
+public interface Pair<K, V> {
+
+
 }

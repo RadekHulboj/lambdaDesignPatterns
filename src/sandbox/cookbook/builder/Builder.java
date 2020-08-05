@@ -2,12 +2,13 @@ package sandbox.cookbook.builder;
 
 import eu.hulboj.model.Person;
 
+import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
 @FunctionalInterface
 public interface Builder {
 
-    BuilderSupplier chain();
+    BuilderSupplier supplier();
 
     static Builder build(Supplier<Person> personSupplier) {
         return () -> personSupplier::get;
@@ -15,22 +16,22 @@ public interface Builder {
 
     default Builder setName(Supplier<String> stringSupplier) {
         return () -> () -> {
-            Person receive = chain().receive();
-            receive.setName(stringSupplier.get());
-            return receive;
+            Person p = supplier().receive();
+            p.setName(stringSupplier.get());
+            return p;
         };
     }
 
-    default Builder setAge(Supplier<Integer> integerSupplier) {
+    default Builder setAge(IntSupplier integerSupplier) {
         return () -> () -> {
-            Person receive = chain().receive();
-            receive.setAge(integerSupplier.get());
-            return receive;
+            Person p = supplier().receive();
+            p.setAge(integerSupplier.getAsInt());
+            return p;
         };
     }
 
     default Person build () {
-        return chain().receive();
+        return supplier().receive();
     }
 
 }

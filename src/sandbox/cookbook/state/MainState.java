@@ -17,19 +17,23 @@ public class MainState {
     private static void mainTry() {
 
         Consumer<StateBuilder<Long, String>> transition = StateMachine
-                .init(1L, "INIT", MainState::accept)
-                .transition(2L, "RUN", MainState::accept)
-                .transition(3L, "STOP", MainState::accept);
+                .init("ZERO",1L, "INIT", MainState::accept)
+                .transition("INIT",2L, "RUN", MainState::accept)
+                .transition("ZERO",3L, "INIT", MainState::accept)
+                .transition("RUN",4L, "ZERO", MainState::accept);
 
         StateMachine<Long, String> sm = StateMachine.build(transition);
 
-        Arrays.asList(1L, 2L, 3L).forEach(i -> System.out.println(sm.event(i)));
+        // Object[] state = new Object[];
+        sm.event(1L);  // TODO: RaHu wolanie bedzie wygladala w 2 kroku tak -> sm.event("ZERO",1L, newState-> { state[0] = newState }
+        sm.event(2L);
+        sm.event(1L);
     }
 
     private static void analyzeTry() {
-        Consumer<StateBuilder<Integer, String>> consumer = stateBuilder -> stateBuilder.register(1, "one", s -> System.out.println("ss"));
+        Consumer<StateBuilder<Integer, String>> consumer = stateBuilder -> stateBuilder.register("zero", 1, "one", s -> System.out.println("ss"));
         HashMap<Integer, String> map = new HashMap<>();
-        StateBuilder<Integer, String> stateBuilder = (event, state, f) -> map.put(event, state);
+        StateBuilder<Integer, String> stateBuilder = (sstate, event, state, f) -> map.put(event, state);
         consumer.accept(stateBuilder);
     }
 
