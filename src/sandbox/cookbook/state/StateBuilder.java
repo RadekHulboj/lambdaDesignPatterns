@@ -1,5 +1,5 @@
 package sandbox.cookbook.state;
 
-public interface StateBuilder {
-    void register(Integer event, String state);
+public interface StateBuilder<I, S> {
+    void register(I event, S state);
 }

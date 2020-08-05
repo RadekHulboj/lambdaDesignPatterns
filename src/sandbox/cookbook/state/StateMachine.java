@@ -4,23 +4,23 @@ import java.util.HashMap;
 import java.util.function.Consumer;
 
 @FunctionalInterface
-public interface StateMachine {
-    String event(Integer evNumber);
+public interface StateMachine<I, S> {
+    S event(I evNumber);
 
-    static StateMachine build(Consumer<StateBuilder> consumer) {
-        HashMap<Integer, String> map = new HashMap<>();
+    static <I, S> StateMachine<I, S> build(Consumer<StateBuilder<I, S>> consumer) {
+        HashMap<I, S> map = new HashMap<>();
         consumer.accept((e, s) -> {
             map.put(e, s);
         });
         return evNumber -> map.get(evNumber);
     }
 
-    static ConsumerStateBuilder init(Integer event, String state) {
+    static <I, S> ConsumerStateBuilder<I, S> init(I event, S state) {
         return stateBuilder -> stateBuilder.register(event, state);
     }
 
-    interface ConsumerStateBuilder extends Consumer<StateBuilder> {
-        default ConsumerStateBuilder transition(Integer event, String state) {
+    interface ConsumerStateBuilder<I, S> extends Consumer<StateBuilder<I, S>> {
+        default ConsumerStateBuilder<I, S> transition(I event, S state) {
             return stateBuilder -> {
                 this.accept((e, s) -> stateBuilder.register(e, s));
                 stateBuilder.register(event, state);
