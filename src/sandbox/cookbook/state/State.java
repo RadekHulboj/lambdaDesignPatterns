@@ -1,11 +1,11 @@
 package sandbox.cookbook.state;
 
-import java.util.function.Supplier;
+        import java.util.function.Supplier;
 
 public interface State<T> {
     Supplier<T> getState();
 
-    static <T >State<T> init(T s) {
+    static <T> State<T> init(T s) {
         return () -> () -> s;
     }
 

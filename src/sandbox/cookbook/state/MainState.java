@@ -1,6 +1,5 @@
 package sandbox.cookbook.state;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
@@ -24,10 +23,9 @@ public class MainState {
 
         StateMachine<Long, String> sm = StateMachine.build(transition);
 
-        // Object[] state = new Object[];
-        sm.event(1L);  // TODO: RaHu wolanie bedzie wygladala w 2 kroku tak -> sm.event("ZERO",1L, newState-> { state[0] = newState }
-        sm.event(2L);
-        sm.event(1L);
+        sm.event(() -> () -> "ZERO", 3L);
+        sm.event(() -> () -> "INIT", 2L);
+        sm.event(() -> () -> "RUN", 1L);
     }
 
     private static void analyzeTry() {
@@ -39,9 +37,10 @@ public class MainState {
 
     private static void firstTry() {
         // state interface, maybe will be used later
-        State<String> closures = State.init("Ala");
-        closures.setState("state1")
-                .setState("state2");
+        State<String> closures = State.init("INIT");
+        String s = closures.setState("RUN")
+                .setState("END").getState().get();
+        System.out.println(s);
     }
 
     private static void accept(String s) {
