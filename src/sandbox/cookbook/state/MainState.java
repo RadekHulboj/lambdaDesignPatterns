@@ -7,7 +7,6 @@ public class MainState {
 
     public static void main(String[] args) {
         mainTry();
-
         // only for analyze
         firstTry();
         analyzeTry();
@@ -25,7 +24,7 @@ public class MainState {
 
         sm.event(() -> () -> "ZERO", 3L);
         sm.event(() -> () -> "INIT", 2L);
-        sm.event(() -> () -> "RUN", 1L);
+        sm.event(() -> () -> "RUN", 4L);
     }
 
     private static void analyzeTry() {
@@ -44,6 +43,7 @@ public class MainState {
     }
 
     private static void accept(String s) {
+        // Here we have current state -> s <-
         System.out.println("event function on state:" + s);
     }
 }

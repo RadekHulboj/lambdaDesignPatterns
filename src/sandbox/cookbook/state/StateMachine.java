@@ -17,15 +17,12 @@ public interface StateMachine<E, S> {
         consumer.accept((ss, e, ds, f) -> {
             event2State.put(e, ds);
             event2Function.put(e, f);
-            // TODO: RaHu working here - dostrojenie state2Events
-            if(state2Events.containsKey(ss)) {
-                state2Events.get(ss).add(e);
-            } else {
+            if (!state2Events.containsKey(ss)) {
                 state2Events.put(ss, new ArrayList<>());
             }
+            state2Events.get(ss).add(e);
         });
         return (curState, evNumber) -> {
-            // TODO: RaHu working here - dostrojenie state2Events
             S currentState = curState.getState().get();
             if(state2Events.get(currentState).contains(evNumber)) {
                 S newState = event2State.get(evNumber);
