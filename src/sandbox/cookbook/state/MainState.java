@@ -20,11 +20,11 @@ public class MainState {
                 .transition("ZERO",3L, "INIT", MainState::accept)
                 .transition("RUN",4L, "ZERO", MainState::accept);
 
-        StateMachine<Long, String> sm = StateMachine.build(transition);
+        StateMachine<Long, String> sm = StateMachine.build("ZERO", transition);
 
-        sm.event(() -> () -> "ZERO", 3L);
-        sm.event(() -> () -> "INIT", 2L);
-        sm.event(() -> () -> "RUN", 4L);
+        sm.event(3L);
+        sm.event(2L);
+        sm.event(4L);
     }
 
     private static void analyzeTry() {

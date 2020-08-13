@@ -8,12 +8,17 @@ import java.util.function.Consumer;
 @FunctionalInterface
 public interface StateMachine<E, S> {
 
-    S event( State<S> state, E evNumber);
+    StateHolder STATE_HOLDER =  new StateHolder();
 
-    static <E, S> StateMachine<E, S> build(Consumer<StateBuilder<E, S>> consumer) {
+    S event(E evNumber);
+
+    static <E, S> StateMachine<E, S> build(S initState, Consumer<StateBuilder<E, S>> consumer) {
         HashMap<E, S> event2State = new HashMap<>();
         HashMap<E, Consumer<S>> event2Function = new HashMap<>();
         HashMap<S, List<E>> state2Events = new HashMap<>();
+
+        STATE_HOLDER.setState(initState);
+
         consumer.accept((ss, e, ds, f) -> {
             event2State.put(e, ds);
             event2Function.put(e, f);
@@ -22,10 +27,11 @@ public interface StateMachine<E, S> {
             }
             state2Events.get(ss).add(e);
         });
-        return (curState, evNumber) -> {
-            S currentState = curState.getState().get();
+        return (evNumber) -> {
+            S currentState = (S)STATE_HOLDER.getState();
             if(state2Events.get(currentState).contains(evNumber)) {
                 S newState = event2State.get(evNumber);
+                STATE_HOLDER.setState(newState);
                 event2Function.get(evNumber).accept(newState);
                 return newState;
             } else {
