@@ -1,9 +1,7 @@
 
-nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÅÝÙ§üÿÿÿÿ8áíþ¶¹.
+V
+squid:S106"9Replace this use of System.out or System.err by a logger.(…¤±Ù8üúíõ¹.
+[
+squid:S106"9Replace this use of System.out or System.err by a logger.(ÌÜˆØÿÿÿÿÿ8üúíõ¹.
 T
 squid:S106"9Replace this use of System.out or System.err by a logger.(‹·é±øÿÿÿÿ
-nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(øî”‰ûÿÿÿÿ8Þà“‰¹.
-Xsquid:S1854":Remove this useless assignment to local variable "saddle".(µÑÑž8Þà“‰¹.
-Ysquid:S1854";Remove this useless assignment to local variable "bicycle".(•ÜœÐ8Þà“‰¹.
-Jsquid:S1481",Remove this unused "bicycle" local variable.(•ÜœÐ8Þà“‰¹.
-Isquid:S1481"+Remove this unused "saddle" local variable.(µÑÑž8Þà“‰¹.
