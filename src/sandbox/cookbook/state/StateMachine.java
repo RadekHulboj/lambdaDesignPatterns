@@ -1,5 +1,7 @@
 package sandbox.cookbook.state;
 
+import common.exception.StateException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,17 +10,13 @@ import java.util.function.Consumer;
 @FunctionalInterface
 public interface StateMachine<E, S> {
 
-    StateHolder STATE_HOLDER = new StateHolder();
-
     S event(E evNumber);
 
-    static <E, S> StateMachine<E, S> build(S initState, Consumer<StateBuilder<E, S>> consumer) {
+    static <E, S> StateMachine<E, S> build(S initState, StateHolder<S> stateHolder, Consumer<StateBuilder<E, S>> consumer) {
         HashMap<E, S> event2State = new HashMap<>();
         HashMap<E, Consumer<S>> event2Function = new HashMap<>();
         HashMap<S, List<E>> state2Events = new HashMap<>();
-
-        STATE_HOLDER.setState(initState);
-
+        stateHolder.setState(initState);
         consumer.accept((ss, e, ds, f) -> {
             event2State.put(e, ds);
             event2Function.put(e, f);
@@ -28,14 +26,14 @@ public interface StateMachine<E, S> {
             state2Events.get(ss).add(e);
         });
         return evNumber -> {
-            S currentState = (S) STATE_HOLDER.getState();
+            S currentState = stateHolder.getState();
             if (state2Events.get(currentState).contains(evNumber)) {
                 S newState = event2State.get(evNumber);
-                STATE_HOLDER.setState(newState);
+                stateHolder.setState(newState);
                 event2Function.get(evNumber).accept(newState);
                 return newState;
             } else {
-                throw new RuntimeException("State machine fails");
+                throw new StateException("State machine fails");
             }
         };
     }
