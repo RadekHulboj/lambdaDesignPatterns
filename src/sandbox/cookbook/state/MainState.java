@@ -5,44 +5,30 @@ import java.util.function.Consumer;
 
 public class MainState {
 
+    enum EnumState {INIT, READY, RUN}
+
+    enum EnumEvent {EV_INIT, EV_RUN, EV_READY1, EV_READY2}
+
     public static void main(String[] args) {
         mainTry();
-        // only for analyze
-        firstTry();
-        analyzeTry();
     }
 
     private static void mainTry() {
 
-        Consumer<StateBuilder<Long, String>> transition = StateMachine
-                .init("ZERO",1L, "INIT", MainState::accept)
-                .transition("INIT",2L, "RUN", MainState::accept)
-                .transition("ZERO",3L, "INIT", MainState::accept)
-                .transition("RUN",4L, "ZERO", MainState::accept);
+        Consumer<StateBuilder<EnumEvent, EnumState>> transition = StateMachine
+                .init(EnumState.INIT, EnumEvent.EV_READY1, EnumState.READY, MainState::accept)
+                .transition(EnumState.READY, EnumEvent.EV_RUN, EnumState.RUN, MainState::accept)
+                .transition(EnumState.INIT, EnumEvent.EV_READY2, EnumState.READY, MainState::accept)
+                .transition(EnumState.RUN, EnumEvent.EV_INIT, EnumState.INIT, MainState::accept);
 
-        StateMachine<Long, String> sm = StateMachine.build("ZERO", transition);
+        StateMachine<EnumEvent, EnumState> sm = StateMachine.build(EnumState.INIT, transition);
 
-        sm.event(3L);
-        sm.event(2L);
-        sm.event(4L);
+        sm.event(EnumEvent.EV_READY2);
+        sm.event(EnumEvent.EV_RUN);
+        sm.event(EnumEvent.EV_INIT);
     }
 
-    private static void analyzeTry() {
-        Consumer<StateBuilder<Integer, String>> consumer = stateBuilder -> stateBuilder.register("zero", 1, "one", s -> System.out.println("ss"));
-        HashMap<Integer, String> map = new HashMap<>();
-        StateBuilder<Integer, String> stateBuilder = (sstate, event, state, f) -> map.put(event, state);
-        consumer.accept(stateBuilder);
-    }
-
-    private static void firstTry() {
-        // state interface, maybe will be used later
-        State<String> closures = State.init("INIT");
-        String s = closures.setState("RUN")
-                .setState("END").getState().get();
-        System.out.println(s);
-    }
-
-    private static void accept(String s) {
+    private static void accept(EnumState s) {
         // Here we have current state -> s <-
         System.out.println("event function on state:" + s);
     }

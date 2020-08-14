@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 @FunctionalInterface
 public interface StateMachine<E, S> {
 
-    StateHolder STATE_HOLDER =  new StateHolder();
+    StateHolder STATE_HOLDER = new StateHolder();
 
     S event(E evNumber);
 
@@ -27,9 +27,9 @@ public interface StateMachine<E, S> {
             }
             state2Events.get(ss).add(e);
         });
-        return (evNumber) -> {
-            S currentState = (S)STATE_HOLDER.getState();
-            if(state2Events.get(currentState).contains(evNumber)) {
+        return evNumber -> {
+            S currentState = (S) STATE_HOLDER.getState();
+            if (state2Events.get(currentState).contains(evNumber)) {
                 S newState = event2State.get(evNumber);
                 STATE_HOLDER.setState(newState);
                 event2Function.get(evNumber).accept(newState);
