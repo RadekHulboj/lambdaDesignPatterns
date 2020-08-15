@@ -45,7 +45,7 @@ public interface StateMachine<E, S> {
     interface ConsumerStateBuilder<E, S> extends Consumer<StateBuilder<E, S>> {
         default ConsumerStateBuilder<E, S> transition(S srcState, E event, S dstState, Consumer<S> function) {
             return stateBuilder -> {
-                this.accept((ss, e, ds, f) -> stateBuilder.register(ss, e, ds, f));
+                accept(stateBuilder);
                 stateBuilder.register(srcState, event, dstState, function);
             };
         }
