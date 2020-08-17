@@ -15,7 +15,7 @@ public class MainState {
                 .transition(EnumState.INIT, EnumEvent.EV_READY2, EnumState.READY, MainState::onEventReady2)
                 .transition(EnumState.RUN, EnumEvent.EV_INIT, EnumState.INIT, MainState::onEventInit);
 
-        StateMachine<EnumEvent, EnumState> sm = StateMachine.build(EnumState.INIT, new StateHolder<>(), transitions);
+        StateMachine<EnumEvent, EnumState> sm = StateMachine.build(EnumState.INIT, transitions);
 
         sm.event(EnumEvent.EV_READY2);
         sm.event(EnumEvent.EV_RUN);

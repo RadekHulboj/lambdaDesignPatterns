@@ -12,11 +12,13 @@ public interface StateMachine<E, S> {
 
     S event(E evNumber);
 
-    static <E, S> StateMachine<E, S> build(S initState, StateHolder<S> stateHolder, Consumer<StateBuilder<E, S>> consumer) {
+    static <E, S> StateMachine<E, S> build(S initState, Consumer<StateBuilder<E, S>> consumer) {
+        final String stateValue = "StateValue";
+        HashMap<String, S> stateHolder = new HashMap<>();
         HashMap<E, S> event2State = new HashMap<>();
         HashMap<E, Consumer<S>> event2Function = new HashMap<>();
         HashMap<S, List<E>> state2Events = new HashMap<>();
-        stateHolder.setState(initState);
+        stateHolder.put(stateValue, initState);
         consumer.accept((ss, e, ds, f) -> {
             event2State.put(e, ds);
             event2Function.put(e, f);
@@ -26,10 +28,10 @@ public interface StateMachine<E, S> {
             state2Events.get(ss).add(e);
         });
         return evNumber -> {
-            S currentState = stateHolder.getState();
+            S currentState = stateHolder.get(stateValue);
             if (state2Events.get(currentState).contains(evNumber)) {
                 S newState = event2State.get(evNumber);
-                stateHolder.setState(newState);
+                stateHolder.put(stateValue, newState);
                 event2Function.get(evNumber).accept(newState);
                 return newState;
             } else {
