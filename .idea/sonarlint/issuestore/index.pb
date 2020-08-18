@@ -1,52 +1,10 @@
 
-D
-src/utils/Utils.java,5\f\5f56d91879c43735b29378aa173392c8b7fd8c64
-O
-src/eu/hulboj/model/Saddle.java,0\4\04d0b0fa7e88b7334ee08f81170981d2401105f2
-P
- src/eu/hulboj/model/Bicycle.java,c\e\cec29125997481713a83136084e3787e13c59a75
-N
-src/eu/hulboj/model/Wheel.java,9\f\9fde15c9839781e2a9a1084ea607a8334806c4fc
-O
-src/eu/hulboj/model/Person.java,d\3\d3a7e8067301ce4fd59e69a8d93898151ea4f9b2
-S
-#src/dp/validator/MainValidator.java,7\5\7560b63bf0d55d8e1ae94119be2289e763bfddbd
-O
-src/dp/visitor/MainVisitor.java,1\f\1fe2f2f69846e323f634ee1c74d7430c2bdc3e7f
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-R
-"src/dp/visitor/VisitorBuilder.java,1\e\1e50b1cf26e64076337c6089c0cdf9d0e00c360d
-K
-src/dp/visitor/Visitor.java,5\4\54d5e28c40595c843525f0d9f319d47093a63bfa
-N
-src/common/ISneakyThrower.java,c\c\ccb922f7f3f42d36e8c38768450841f10322b3e9
-R
-"src/cookbook/cache/CacheUtils.java,7\5\75edda4cb46287e1f679c176b86e560e6163b33d
-V
-&src/cookbook/cache/CacheUtilsTest.java,a\4\a48555bc557e2d32dd104d76bf4458bb38d93233
-Y
-)src/cookbook/retry/RetryConsumerUtil.java,6\0\60cdd3e921c729ed0c180c95a40f5d6d3f2c5000
-X
-(src/cookbook/retry/MainConsumerUtil.java,0\6\06d9077cbc80dda73e94b4cd1557f8b39e69b87c
-\
-,src/sandbox/cookbook/state/StateMachine.java,0\c\0c67d776c2a9e37261c7724e2e7c0da96df90396
-Y
-)src/sandbox/cookbook/state/MainState.java,e\4\e4b570d74bbbd81895e4eea0de3c4b8737511b02
-_
-/src/sandbox/cookbook/visit/SbMainVisitator.java,3\8\38fa875043096d30fa03383c15829a29b7d9b9d5
-S
-#src/sandbox/cookbook/pair/Pair.java,6\d\6db977cf0ddc0c873ba5cd0a2af6359e17fdbf2e
-Y
-)src/sandbox/cookbook/visit/SbVisitor.java,e\5\e5041faf7953ff6aff84d95ad094e9eff29881c0
 ]
--src/sandbox/cookbook/builder/MainBuilder.java,7\a\7af20f7b83c3b4eda09e585e10963fac5cd1257e
-a
-1src/sandbox/cookbook/builder/BuilderSupplier.java,a\b\abc0ea6a7fde905e17a6227e7c5d9e5523c7eb7a
-Y
-)src/sandbox/cookbook/builder/Builder.java,6\3\63a613da4688a79ee2c3dacaaa7f88902ee45381
-\
-,src/sandbox/cookbook/state/StateBuilder.java,4\7\476990c2c04ed4dd6a8f817685911400e974af1a
-[
-+src/sandbox/cookbook/state/StateHolder.java,e\1\e165e94d056e28dbb0aea41c3771a9f522382ee7
+-src/main/java/dp/validator/MainValidator.java,1\e\1ef059929f5813223ef895137ac538b980fb1e9b
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+c
+3src/main/java/sandbox/cookbook/state/MainState.java,6\4\6439531e5714ecc2dd1e1d011a36578c1ea93bc6

@@ -13,7 +13,7 @@ public interface StateMachine<E, S> {
     S event(E evNumber);
 
     static <E, S> StateMachine<E, S> build(S initState, Consumer<StateBuilder<E, S>> consumer) {
-        final String stateValue = "StateValue";
+        final String stateValue = "theStateOfTheStateMachine";
         HashMap<String, S> stateHolder = new HashMap<>();
         HashMap<E, S> event2State = new HashMap<>();
         HashMap<E, Consumer<S>> event2Function = new HashMap<>();
@@ -53,3 +53,4 @@ public interface StateMachine<E, S> {
         }
     }
 }
+

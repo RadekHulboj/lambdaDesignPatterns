@@ -1,5 +1,0 @@
-
-;squid:S2326"K is not used in the interface.(±ë¹ñÿÿÿÿÿ
-Ssquid:UselessImportCheck"*Remove this unused import 'java.util.Map'.(¼è½Òþÿÿÿÿ
-Wsquid:UselessImportCheck".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ
-;squid:S2326"V is not used in the interface.(±ë¹ñÿÿÿÿÿ
