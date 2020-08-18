@@ -3,6 +3,7 @@ package dp.validator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+@FunctionalInterface
 public interface Validator<T> {
 
     ValidatorSupplier on(T p);
