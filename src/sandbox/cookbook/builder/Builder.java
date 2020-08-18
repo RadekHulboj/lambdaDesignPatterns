@@ -1,37 +1,36 @@
 package sandbox.cookbook.builder;
 
-import eu.hulboj.model.Person;
+import eu.hulboj.model.IPerson;
 
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
 @FunctionalInterface
-public interface Builder {
+public interface Builder<T extends IPerson> {
 
-    BuilderSupplier supplier();
+    BuilderSupplier<T> supplier();
 
-    static Builder build(Supplier<Person> personSupplier) {
-        return () -> personSupplier::get;
+    static <T extends IPerson> Builder build(BuilderSupplier<T> personSupplier) {
+        return () -> personSupplier::receive;
     }
 
-    default Builder setName(Supplier<String> stringSupplier) {
+    default Builder<T> setName(Supplier<String> stringSupplier) {
         return () -> () -> {
-            Person p = supplier().receive();
+            T p = supplier().receive();
             p.setName(stringSupplier.get());
             return p;
         };
     }
 
-    default Builder setAge(IntSupplier integerSupplier) {
+    default Builder<T> setAge(IntSupplier integerSupplier) {
         return () -> () -> {
-            Person p = supplier().receive();
+            T p = supplier().receive();
             p.setAge(integerSupplier.getAsInt());
             return p;
         };
     }
 
-    default Person build () {
+    default T build() {
         return supplier().receive();
     }
-
 }

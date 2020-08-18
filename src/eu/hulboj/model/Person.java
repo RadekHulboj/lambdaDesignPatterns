@@ -1,6 +1,6 @@
 package eu.hulboj.model;
 
-public class Person {
+public class Person implements IPerson {
 
 	private String name;
 	private int age;
@@ -16,6 +16,7 @@ public class Person {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -24,6 +25,7 @@ public class Person {
 		return age;
 	}
 
+	@Override
 	public void setAge(int age) {
 		this.age = age;
 	}
