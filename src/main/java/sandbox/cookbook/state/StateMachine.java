@@ -5,14 +5,16 @@ import common.exception.StateException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 
 @FunctionalInterface
 public interface StateMachine<E, S> {
 
     S event(E evNumber);
+    ReentrantLock reentrantLock = new ReentrantLock();
 
-    static <E, S> StateMachine<E, S> build(S initState, Consumer<StateBuilder<E, S>> consumer) {
+     static  <E, S>  StateMachine<E, S>  build(S initState, Consumer<StateBuilder<E, S>> consumer) {
         final String stateValue = "theStateOfTheStateMachine";
         HashMap<String, S> stateHolder = new HashMap<>();
         HashMap<String, S> event2State = new HashMap<>();
@@ -28,15 +30,19 @@ public interface StateMachine<E, S> {
             state2Events.get(ss).add(e);
         });
         return evNumber -> {
+            reentrantLock.lock();
             S currentState = stateHolder.get(stateValue);
             if (state2Events.get(currentState).contains(evNumber)) {
                 S newState = event2State.get(buildUniqueKeyFromEventState(currentState, evNumber));
                 stateHolder.put(stateValue, newState);
                 event2Function.get(evNumber).accept(newState);
+                reentrantLock.unlock();
                 return newState;
             } else {
+                reentrantLock.unlock();
                 throw new StateException("State machine fails");
             }
+
         };
     }
 

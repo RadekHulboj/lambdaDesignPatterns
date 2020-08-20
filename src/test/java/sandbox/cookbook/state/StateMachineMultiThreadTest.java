@@ -5,7 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,12 +28,20 @@ class StateMachineMultiThreadTest {
     StateMachine<Integer, String> sm = StateMachine.build("C", transitions);
     @DisplayName("Check success flow for multi-threading StateMachine")
     @Test
-    public void checkFlowForMultiTreading() {
+    public void checkFlowForMultiTreading() throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        List<Callable<String>> callableTasks = new ArrayList<>();
 
-        // when TODO: RaHu something went wrong all the time state is A
-        sm.event(1);
-        sm.event(1);
-        sm.event(1);
+       for (int i = 0; i < 5; i++) {
+            callableTasks.add(() -> {
+                Stream.iterate(0, n -> n + 1)
+                        .limit(10)
+                        .forEach(x -> sm.event(1));
+                return null;
+            });
+       }
+        executorService.invokeAll(callableTasks);
+
     }
     // then
     void evFunctionMultiThreading(String s) {
