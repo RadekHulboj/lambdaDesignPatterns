@@ -10,11 +10,11 @@ import java.util.function.Consumer;
 
 @FunctionalInterface
 public interface StateMachine<E, S> {
-    ReentrantLock reentrantLock = new ReentrantLock();
 
     S event(E evNumber);
 
     static <E, S> StateMachine<E, S> build(S initState, Consumer<StateBuilder<E, S>> consumer) {
+        ReentrantLock reentrantLock = new ReentrantLock();
         final String stateValue = "theStateOfTheStateMachine";
         HashMap<String, S> stateHolder = new HashMap<>();
         HashMap<String, S> event2State = new HashMap<>();
