@@ -15,12 +15,12 @@ public interface StateMachine<E, S> {
     static <E, S> StateMachine<E, S> build(S initState, Consumer<StateBuilder<E, S>> consumer) {
         final String stateValue = "theStateOfTheStateMachine";
         HashMap<String, S> stateHolder = new HashMap<>();
-        HashMap<E, S> event2State = new HashMap<>();
+        HashMap<String, S> event2State = new HashMap<>();
         HashMap<E, Consumer<S>> event2Function = new HashMap<>();
         HashMap<S, List<E>> state2Events = new HashMap<>();
         stateHolder.put(stateValue, initState);
         consumer.accept((ss, e, ds, f) -> {
-            event2State.put(e, ds);
+            event2State.put(buildUniqueKeyFromEventState(ss, e), ds);
             event2Function.put(e, f);
             if (!state2Events.containsKey(ss)) {
                 state2Events.put(ss, new ArrayList<>());
@@ -30,7 +30,7 @@ public interface StateMachine<E, S> {
         return evNumber -> {
             S currentState = stateHolder.get(stateValue);
             if (state2Events.get(currentState).contains(evNumber)) {
-                S newState = event2State.get(evNumber);
+                S newState = event2State.get(buildUniqueKeyFromEventState(currentState, evNumber));
                 stateHolder.put(stateValue, newState);
                 event2Function.get(evNumber).accept(newState);
                 return newState;
@@ -38,6 +38,10 @@ public interface StateMachine<E, S> {
                 throw new StateException("State machine fails");
             }
         };
+    }
+
+    static <E, S> String buildUniqueKeyFromEventState(S ss, E e) {
+        return e.toString() + ss.toString();
     }
 
     static <E, S> ConsumerStateBuilder<E, S> init(S srcState, E event, S dstState, Consumer<S> function) {

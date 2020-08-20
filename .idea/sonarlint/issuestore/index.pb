@@ -14,3 +14,5 @@ f
 6src/main/java/sandbox/cookbook/state/StateMachine.java,3\0\305a8d8464c2e9969c152a3c571c8f4683ea580d
 j
 :src/test/java/sandbox/cookbook/state/StateMachineTest.java,d\5\d58966b078bd2436a39d4f6273d972198a215ccb
+u
+Esrc/test/java/sandbox/cookbook/state/StateMachineMultiThreadTest.java,2\a\2a5ebde67706b7d181b475d90adbcba2e0c1cb52

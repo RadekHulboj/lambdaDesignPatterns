@@ -27,10 +27,10 @@ class StateMachineTest {
         sm.event(2);
         sm.event(3);
     }
-
     // then
     void evFunction(String s) {
         List<String> collect = Stream.of(new String[]{"Init", "Run", "Stop"}).collect(Collectors.toList());
         assertThat(collect, hasItem(s));
+        System.out.println(s);
     }
 }
