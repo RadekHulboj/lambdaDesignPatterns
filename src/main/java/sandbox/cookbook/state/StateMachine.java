@@ -42,7 +42,6 @@ public interface StateMachine<E, S> {
                 reentrantLock.unlock();
                 throw new StateException("State machine fails");
             }
-
         };
     }
 
