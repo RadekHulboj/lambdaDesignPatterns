@@ -54,6 +54,7 @@ class StateMachineMultiThreadTest {
                 })
                 .sum();
         int noConcurrentRepeats = 0;
+        // then
         Assertions.assertEquals(noConcurrentRepeats, sumOfTheRepeats);
     }
 
