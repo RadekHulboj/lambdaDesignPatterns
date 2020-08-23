@@ -14,9 +14,9 @@ public interface IBuilder<I> {
 
     default <V> IBuilder<I> with(BiConsumer<I, V> method, V v) {
         return () -> () -> {
-            I person = supplier().get();
-            method.accept(person, v);
-            return person;
+            I inst = supplier().get();
+            method.accept(inst, v);
+            return inst;
         };
     }
 
