@@ -4,6 +4,7 @@ public class Person implements IPerson {
 
 	private String name;
 	private int age;
+	private Heart heart;
 
 	public Person() { }
 
@@ -30,9 +31,16 @@ public class Person implements IPerson {
 		this.age = age;
 	}
 
+	public Heart getHeart() {
+		return heart;
+	}
+
+	public void setHeart(Heart heart) {
+		this.heart = heart;
+	}
 
 	@Override
 	public String toString() {
-		return "Person [name=" + name + ", age=" + age + "]";
+		return "Person [name=" + name + ", age=" + age +", health=" + heart.getHealth() +"]";
 	}
 }
