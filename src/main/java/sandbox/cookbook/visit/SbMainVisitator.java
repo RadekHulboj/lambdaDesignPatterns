@@ -10,13 +10,11 @@ public class SbMainVisitator {
         Bicycle bicycle = new Bicycle();
 
         Consumer<SbVisitorBuilder<String>> builderConsumer = SbVisitor.<String>build()
-                .forType(Bicycle.class).execution(o-> "Bicycle=" + o);
+                .forType(Bicycle.class).execution(o -> "Bicycle=" + o);
 
         SbVisitor<String> v = SbVisitor.of(builderConsumer);
 
         String visit = v.visit(bicycle);
-
-
 
 
     }
