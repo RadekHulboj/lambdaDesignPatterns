@@ -8,6 +8,10 @@ public interface IBuilder<I> {
 
     Supplier<I> supplier();
 
+    interface TriConsumer<I, P1, P2> {
+        void accept (I inst, P1 param1, P2 param2);
+    }
+
     static <I> IBuilder<I> of(Supplier<I> instance) {
         return () -> instance;
     }
@@ -20,7 +24,16 @@ public interface IBuilder<I> {
         };
     }
 
+    default <V1, V2> IBuilder<I> with(TriConsumer<I, V1, V2> method, V1 v1, V2 v2) {
+        return () -> () -> {
+            I inst = supplier().get();
+            method.accept(inst, v1, v2);
+            return inst;
+        };
+    }
+
     default I build() {
         return supplier().get();
     }
 }
+

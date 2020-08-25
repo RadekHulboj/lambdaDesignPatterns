@@ -14,5 +14,14 @@ public class MainBuilder {
                                 .build())
                 .build();
         System.out.println(rob);
+
+        Person anna = IBuilder.of(Person::new)
+                .with(Person::setAll, "Anna", 24)
+                .with(Person::setHeart,
+                        IBuilder.of(Heart::new)
+                                .with(Heart::setHealth, "super good")
+                                .build())
+                .build();
+        System.out.println(anna);
     }
 }

@@ -1,5 +1,7 @@
 package eu.hulboj.model;
 
+import java.util.stream.Stream;
+
 public class Person implements IPerson {
 
 	private String name;
@@ -15,6 +17,11 @@ public class Person implements IPerson {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setAll(String name, int age) {
+		setName(name);
+		setAge(age);
 	}
 
 	@Override
