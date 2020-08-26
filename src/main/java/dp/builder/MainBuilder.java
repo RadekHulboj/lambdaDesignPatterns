@@ -21,14 +21,14 @@ public class MainBuilder {
     }
 
     public static void buildBob() {
-        Person rob = IBuilder.of(Person::new)
+        Person bob = IBuilder.of(Person::new)
                 .with(Person::setAge, 23)
-                .with(Person::setName, "Rob")
+                .with(Person::setName, "Bob")
                 .with(Person::setHeart,
                         IBuilder.of(Heart::new)
                                 .with(Heart::setHealth, "good")
                                 .build())
                 .build();
-        System.out.println(rob);
+        System.out.println(bob);
     }
 }
