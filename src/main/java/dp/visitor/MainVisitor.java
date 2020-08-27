@@ -15,9 +15,9 @@ public class MainVisitor {
         Saddle saddle = new Saddle();
 
         Consumer<VisitorBuilder<String>> builderConsumer = Visitor.<String>build()
-                .forType(Wheel.class).visitation(e -> "Visiting engine" + e)
-                .forType(Saddle.class).visitation(b -> "Visiting body" + b)
-                .forType(Bicycle.class).visitation(c -> "Visiting car" + c);
+                .forType(Wheel.class).visitation(e -> "Visiting wheel" + e)
+                .forType(Saddle.class).visitation(b -> "Visiting saddle" + b)
+                .forType(Bicycle.class).visitation(c -> "Visiting bicycle" + c);
 
         Visitor<String> visitor = Visitor.of(builderConsumer);
 
