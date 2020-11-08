@@ -8,26 +8,19 @@ import java.util.function.Function;
 @FunctionalInterface
 public interface Visitor<R> {
 
-    R visit(Object o);
+    R visit(Object obj);
 
-    /*
-    Tworzy Visitator
-    Tworzy Visitator Builder
-
-     */
-    static <R> Visitor<R> of(Consumer<VisitorBuilder<R>> consumer) {
+    static <R> Visitor<R> of(Consumer<VisitorLink<R>> consumer) {
         Map<Class<?>, Function<Object, R>> registry = new HashMap<>();
-        VisitorBuilder<R> rVisitorBuilder = new VisitorBuilder<R>() {
+        VisitorLink<R> visitorLink = new VisitorLink<R>() {
             @Override
             public <T> void register(Class<T> type, Function<T, R> function) {
                     registry.put(type, function.compose(type::cast));
             }
         };
-        consumer.accept(rVisitorBuilder);
-        return o -> {
-            Function<Object, R> objectRFunction = registry.get(o.getClass());
-            return objectRFunction.apply(o);
-        };
+        consumer.accept(visitorLink);
+
+        return obj -> registry.get(obj.getClass()).apply(obj);
     }
 
     static <R> ConsumerVisitorBuilder<R> build() {
@@ -35,8 +28,8 @@ public interface Visitor<R> {
     }
 
     @FunctionalInterface
-    interface ConsumerVisitorBuilder<R> extends Consumer<VisitorBuilder<R>> {
-        default <T> Helper<T, R> forType(Class<T> type) { // jakby przeniesc metode visitation tutaj to widac ze 
+    interface ConsumerVisitorBuilder<R> extends Consumer<VisitorLink<R>> {
+        default <T> Helper<T, R> forType(Class<T> type) {
             return index -> index == 0 ? this : type;
         }
 
@@ -46,7 +39,6 @@ public interface Visitor<R> {
                 after.accept(rVisitorBuilder);
             };
         }
-
     }
 
     @FunctionalInterface
