@@ -23,6 +23,7 @@ public interface Command {
         return commandRegister -> {};
     }
 
+    @FunctionalInterface
     interface ConsumerCommandRegister extends Consumer<CommandRegister> {
         default ConsumerCommandRegister commandType(CmdType type, Command command) {
             return commandRegister -> {
@@ -30,5 +31,10 @@ public interface Command {
                 commandRegister.register(type, command);
             };
         }
+    }
+
+    @FunctionalInterface
+    interface CommandRegister {
+        void register(Command.CmdType cmdType, Command command);
     }
 }

@@ -1,6 +1,7 @@
 package sandbox.cookbook.command;
 
 import sandbox.cookbook.command.Command.CmdType;
+import sandbox.cookbook.command.Command.CommandRegister;
 
 import java.util.function.Consumer;
 
