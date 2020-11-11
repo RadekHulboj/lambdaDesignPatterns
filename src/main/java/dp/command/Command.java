@@ -5,32 +5,33 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 @FunctionalInterface
-public interface Command<K> {
+public interface Command<T> {
 
-    void execute(K cmdType);
+    void execute(T type);
 
-    static <K> Command<K> of(Consumer<CommandRegister<K>> consumerCommandRegister) {
-        Map<K, Command<K>> map = new HashMap<>();
+    static <T> Command<T> of(Consumer<CommandRegister<T>> consumerCommandRegister) {
+        Map<T, Command<T>> map = new HashMap<>();
         consumerCommandRegister.accept(map::put);
         return type -> map.get(type).execute(type);
     }
 
-    static <K> ConsumerCommandRegister<K> createRegister() {
-        return commandRegister -> {};
+    static <T> ConsumerCommandRegister<T> createRegister() {
+        return commandRegister -> {
+        };
     }
 
     @FunctionalInterface
-    interface ConsumerCommandRegister<K> extends Consumer<CommandRegister<K>> {
-        default ConsumerCommandRegister<K> register(K type, Command<K> command) {
+    interface ConsumerCommandRegister<T> extends Consumer<CommandRegister<T>> {
+        default ConsumerCommandRegister<T> register(T type, Command<T> command) {
             return commandRegister -> {
-               this.accept(commandRegister);
+                this.accept(commandRegister);
                 commandRegister.register(type, command);
             };
         }
     }
 
     @FunctionalInterface
-    interface CommandRegister<K> {
-        void register(K cmdType, Command<K> command);
+    interface CommandRegister<T> {
+        void register(T type, Command<T> command);
     }
 }
