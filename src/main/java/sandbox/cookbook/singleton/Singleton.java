@@ -2,41 +2,35 @@ package sandbox.cookbook.singleton;
 
 import common.ISneakyThrower;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @FunctionalInterface
 public interface Singleton<T> {
 
     T instance();
 
-    final class Alone {
-        static Map<Class<?>, Object> alone;
-
-        private Alone() {
+    final class MapSingleton {
+        private MapSingleton() {
         }
 
-        static Map<Class<?>, Object> getInstance() {
-            if (alone == null) {
-                alone = new HashMap<>();
-            }
-            return alone;
-        }
+        private static Map<Class<?>, Object> map = new HashMap<>();
     }
 
-    static <T> Singleton<T> of(Class<?> objCls)  {
-
-
-        Map<Class<?>, Object> map = Alone.getInstance();
-
-        Object value = null;
-        try {
-            value = objCls.newInstance();
-        } catch (IllegalAccessException | InstantiationException e) {
-            ISneakyThrower.sneakyThrow(e);
+    static <T> Singleton<T> of(Class<?> objCls) {
+        Map<Class<?>, Object> map = MapSingleton.map;
+        if (Objects.isNull(map.get(objCls))) {
+            Object value = null;
+            try {
+                value = objCls.getConstructor().newInstance();
+            } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+                ISneakyThrower.sneakyThrow(e);
+            }
+            map.put(objCls, value);
         }
-        map.put(objCls, value);
 
-        return () -> (T)map.get(objCls);
+        return () -> (T) map.get(objCls);
     }
 }
