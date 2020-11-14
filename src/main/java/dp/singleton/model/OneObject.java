@@ -1,4 +1,4 @@
-package dp.singleton;
+package dp.singleton.model;
 
 public class OneObject {
 }

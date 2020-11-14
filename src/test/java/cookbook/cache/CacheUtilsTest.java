@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -23,7 +24,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class CacheUtilsTest {
 
     @Test
-    public void memoizeRuftMethodeNicht(){
+    @DisplayName("Method is not call, because function laziness is working")
+    public void theLazinessIsWorkingForMemoizeMethod() {
         //given
         String cachedValue = "cached";
         int functionIsNotCalled = 0;
@@ -35,7 +37,8 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void getMethodeNutztCache(){
+    @DisplayName("The function computationMethod is called one's, the rest is taken from the cache.")
+    public void theMethodIsCalledOneTimeBecauseOfTheCaching() {
         //given
         String cachedValue = "cached";
         int functionIsCalledOnlyOneTime = 1;
@@ -49,7 +52,8 @@ public class CacheUtilsTest {
     }
 
     @Test
-    public void memoizeIstUnabhaengigFuerEinigeMethoden(){
+    @DisplayName("The memoize function works's in exclude way, just check")
+    public void theMemoizeWorkSeparately() {
         //given
         String cachedValue1 = "cached1";
         String cachedValue2 = "cached2";

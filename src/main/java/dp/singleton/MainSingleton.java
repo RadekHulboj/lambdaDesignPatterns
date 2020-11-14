@@ -1,5 +1,8 @@
 package dp.singleton;
 
+import dp.singleton.model.OneObject;
+import dp.singleton.model.SecondObject;
+
 public class MainSingleton {
 
     private static Singleton<OneObject> oneObjectSingleton = Singleton.of(OneObject.class);
