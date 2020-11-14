@@ -1,16 +1,15 @@
-package sandbox.cookbook.singleton;
+package dp.singleton;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import sandbox.cookbook.singleton.model.TestedSingletonClass1;
-import sandbox.cookbook.singleton.model.TestedSingletonClass2;
+import dp.singleton.model.TestedSingletonClass1;
+import dp.singleton.model.TestedSingletonClass2;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
-
 
 
 @RunWith(JUnit4.class)
@@ -18,7 +17,7 @@ public class SingletonTest {
 
 
     @Test
-    @DisplayName("Tested is a case with one class type")
+    @DisplayName("Tested is a case with one class type - TestedSingletonClass1")
     public void oneCallOfMethodWithOneClassType() {
         // given
         Singleton<TestedSingletonClass1> of = Singleton.of(TestedSingletonClass1.class);
@@ -26,11 +25,12 @@ public class SingletonTest {
         TestedSingletonClass1 instance1a = of.instance();
         TestedSingletonClass1 instance1b = of.instance();
         //then
-        Assert.assertThat(instance1a,is(instance1b));
+        Assert.assertThat(instance1a, is(instance1b));
     }
 
     @Test
-    @DisplayName("Tested is a case with two different class types, each class type work as singleton")
+    @DisplayName("Tested is a case with two different class types TestedSingletonClass1 " +
+            "and TestedSingletonClass2, each class type work as singleton")
     public void manyCallOfMethodWithManyClassType() {
         // given
         Singleton<TestedSingletonClass1> of1 = Singleton.of(TestedSingletonClass1.class);

@@ -1,4 +1,4 @@
-package sandbox.cookbook.singleton;
+package dp.singleton;
 
 import common.ISneakyThrower;
 
