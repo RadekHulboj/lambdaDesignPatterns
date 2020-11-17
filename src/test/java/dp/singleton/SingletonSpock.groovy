@@ -9,7 +9,7 @@ import spock.lang.Specification
 
 @RunWith(JUnit4.class)
 class SingletonSpock extends Specification {
-    
+
     @Test
     void "Tested is a case with one class type - TestedSingletonClass1"() {
         given:
