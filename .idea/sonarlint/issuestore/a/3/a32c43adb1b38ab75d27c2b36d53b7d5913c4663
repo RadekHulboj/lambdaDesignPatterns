@@ -1,7 +1,0 @@
-
-N	java:S106"9Replace this use of System.out or System.err by a logger.(çŠÇî
-ƒ
-java:S1450"aRemove the "secObjectSingleton" field and declare it as a local variable in the relevant methods.(İ¨íºúÿÿÿÿ8õù™—Ü.
-w
-java:S1450"aRemove the "oneObjectSingleton" field and declare it as a local variable in the relevant methods.(¬šÑƒ
-U	java:S106"9Replace this use of System.out or System.err by a logger.(üÃª8˜¦œ—Ü.
