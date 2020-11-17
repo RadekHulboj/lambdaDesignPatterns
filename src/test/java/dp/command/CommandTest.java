@@ -6,6 +6,8 @@ import org.mockito.Mockito;
 
 import static dp.command.ExecuteCommand.CommandType.Executor;
 import static dp.command.ExecuteCommand.CommandType.Victim;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 class CommandTest {
@@ -24,8 +26,7 @@ class CommandTest {
         of.execute(Executor);
         of.execute(Victim);
         // then
-        Mockito.verify(mock, Mockito.times(2)).execute(Executor);
-        Mockito.verify(mock, Mockito.times(1)).execute(Victim);
-
+        verify(mock, times(2)).execute(Executor);
+        verify(mock).execute(Victim);
     }
 }
