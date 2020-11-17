@@ -65,7 +65,7 @@ public class CacheUtilsTest {
         assertThat(memoizeFor2.get(), IsEqual.equalTo(cachedValue2));
     }
 
-    private String computationMethod(String cachedValue, List<Integer> list) {
+    private static String computationMethod(String cachedValue, List<Integer> list) {
         list.add(1);
         return cachedValue;
     }

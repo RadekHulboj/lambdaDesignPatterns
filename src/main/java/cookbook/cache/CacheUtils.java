@@ -16,7 +16,7 @@ public final class CacheUtils<V> implements Supplier<V> {
     }
 
 
-    public static <V> Supplier<V> memoize(Supplier<V> supplier) {
+    static <V> Supplier<V> memoize(Supplier<V> supplier) {
         return supplier instanceof CacheUtils ? (CacheUtils) supplier : new CacheUtils<>(supplier);
     }
 
