@@ -1,4 +1,4 @@
-package sandbox.cookbook.builder.stackoverflow;
+package sandbox.builder.stackoverflow;
 
 import java.util.ArrayList;
 import java.util.List;

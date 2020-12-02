@@ -1,4 +1,4 @@
-package sandbox.cookbook.iterative.opowiesc;
+package sandbox.iterative.talestory;
 
 import java.util.Date;
 import java.util.function.BiConsumer;

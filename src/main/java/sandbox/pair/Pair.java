@@ -1,4 +1,4 @@
-package sandbox.cookbook.pair;
+package sandbox.pair;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package sandbox.cookbook.iterative.opowiesc;
+package sandbox.iterative.talestory;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -9,9 +9,8 @@ class BookStory {
     }
 
     static void story(BiConsumer<Consumer<Integer>, Supplier<String>> biConsumer) {
-        Supplier<String> kara = () -> "malo pieniazkow przywiozla";
-        Consumer<Integer> dobro = integer -> {
-        };
-        biConsumer.accept(dobro, kara);
+        Supplier<String> punishment = () -> "not enough money";
+        Consumer<Integer> goodness = integer -> { };
+        biConsumer.accept(goodness, punishment);
     }
 }

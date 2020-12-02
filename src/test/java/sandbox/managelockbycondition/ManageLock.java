@@ -1,4 +1,4 @@
-package sandbox.cookbook.managelockbycondition;
+package sandbox.managelockbycondition;
 
 import java.util.LinkedList;
 import java.util.Queue;

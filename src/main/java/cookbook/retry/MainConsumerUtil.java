@@ -8,13 +8,13 @@ public class MainConsumerUtil {
         void lock() {
         }
 
-        void delete() throws SQLException {
+        void delete() {
         }
     }
     public static void main(String[] args) {
         Ordering ordering = new Ordering();
         RetryConsumerUtil.<Ordering, SQLException>newBuilder()
-                .retryConsumer((rz) -> {
+                .retryConsumer(rz -> {
                     rz.lock();
                     rz.delete();
                     throw new SQLException("RaHu");

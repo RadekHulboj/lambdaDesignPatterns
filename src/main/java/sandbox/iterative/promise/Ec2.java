@@ -1,4 +1,4 @@
-package sandbox.cookbook.iterative.obietnica;
+package sandbox.iterative.promise;
 
 import java.util.function.BiConsumer;
 

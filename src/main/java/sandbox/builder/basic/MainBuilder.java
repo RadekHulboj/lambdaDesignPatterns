@@ -1,4 +1,4 @@
-package sandbox.cookbook.builder.basic;
+package sandbox.builder.basic;
 
 import eu.hulboj.model.IPerson;
 import eu.hulboj.model.Person;

@@ -1,4 +1,4 @@
-package sandbox.cookbook.visit;
+package sandbox.visit;
 
 import java.util.function.Function;
 

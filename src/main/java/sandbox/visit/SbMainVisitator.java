@@ -1,4 +1,4 @@
-package sandbox.cookbook.visit;
+package sandbox.visit;
 
 import eu.hulboj.model.Bicycle;
 
