@@ -25,13 +25,13 @@ public interface Command<T> {
         default ConsumerCommandRegister<T> register(T type, Command<T> command) {
             return commandRegister -> {
                 this.accept(commandRegister);
-                commandRegister.register(type, command);
+                commandRegister.takes(type, command);
             };
         }
     }
 
     @FunctionalInterface
     interface CommandRegister<T> {
-        void register(T type, Command<T> command);
+        void takes(T type, Command<T> command);
     }
 }

@@ -11,8 +11,8 @@ public class MainCommand {
 
     public static void main(String[] args) {
 
-        Command<CmdType> command = Command.of(Command
-                .<CmdType>createRegister()
+        Command<CmdType> command = Command.of(
+                Command.<CmdType>createRegister()
                 .register(CmdType.COPY, new MainCommand()::copyExecution)
                 .register(CmdType.UNDO, MainCommand::deleteExecution)
                 .register(CmdType.DELETE, cmd -> System.out.println(cmd.toString()))
