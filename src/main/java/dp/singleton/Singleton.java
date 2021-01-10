@@ -22,13 +22,13 @@ public interface Singleton<T> {
     static <T> Singleton<T> of(Class<?> objCls) {
         Map<Class<?>, Object> map = MapSingleton.map;
         if (Objects.isNull(map.get(objCls))) {
-            Object value = null;
+            Object value ;
             try {
                 value = objCls.getConstructor().newInstance();
+                map.put(objCls, value);
             } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
                 ISneakyThrower.sneakyThrow(e);
             }
-            map.put(objCls, value);
         }
 
         return () -> (T) map.get(objCls);

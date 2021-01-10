@@ -23,6 +23,7 @@ public class MainSingleton {
 
         System.out.println(oneObject1.equals(oneObject2));
         System.out.println(secObject1.equals(secObject2));
+        System.out.println(oneObject1.equals(secObject1));
 
     }
 }
