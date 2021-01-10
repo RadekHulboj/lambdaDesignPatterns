@@ -8,6 +8,7 @@ public interface IBuilder<I> {
 
     Supplier<I> supplier();
 
+    @FunctionalInterface
     interface TriConsumer<I, P1, P2> {
         void accept (I inst, P1 param1, P2 param2);
     }
@@ -16,18 +17,18 @@ public interface IBuilder<I> {
         return () -> instance;
     }
 
-    default <V> IBuilder<I> with(BiConsumer<I, V> method, V v) {
+    default <V> IBuilder<I> with(BiConsumer<I, V> biConsumer, V v) {
         return () -> () -> {
             I inst = supplier().get();
-            method.accept(inst, v);
+            biConsumer.accept(inst, v);
             return inst;
         };
     }
 
-    default <V1, V2> IBuilder<I> with(TriConsumer<I, V1, V2> method, V1 v1, V2 v2) {
+    default <V1, V2> IBuilder<I> with(TriConsumer<I, V1, V2> triConsumer, V1 v1, V2 v2) {
         return () -> () -> {
             I inst = supplier().get();
-            method.accept(inst, v1, v2);
+            triConsumer.accept(inst, v1, v2);
             return inst;
         };
     }

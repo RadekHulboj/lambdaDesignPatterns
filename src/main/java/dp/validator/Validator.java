@@ -6,21 +6,27 @@ import java.util.function.Supplier;
 @FunctionalInterface
 public interface Validator<T> {
 
-    ValidatorSupplier on(T p);
+    ValidatorSupplier<T> on(T p);
+
+    @FunctionalInterface
+    interface ValidatorSupplier<T> extends Supplier<T> {
+
+        default void validate() {
+            get();
+        }
+    }
+
+    class ValidationException extends RuntimeException {
+        ValidationException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
 
     default Validator<T> thenValidating(Predicate<T> predicate, String errorMessage) {
         return p -> {
             try {
                 on(p).validate();
-                if (predicate.test(p)) {
-                    return () -> p;
-                } else {
-                    return () -> {
-                        ValidationException exception = new ValidationException("The object is not valid");
-                        exception.addSuppressed(new IllegalArgumentException(errorMessage));
-                        throw exception;
-                    };
-                }
+                return getValidatorSupplier(errorMessage, p, predicate.test(p));
             } catch (ValidationException validationException) {
                 if (predicate.test(p)) {
                     return () -> {
@@ -37,28 +43,18 @@ public interface Validator<T> {
     }
 
     static <T> Validator<T> validating(Predicate<T> predicate, String errorMessage) { // v1
-        return p -> {
-            if (predicate.test(p)) {
-                return () -> p;
-            } else {
-                return () -> {
-                    ValidationException exception = new ValidationException("The object is not valid");
-                    exception.addSuppressed(new IllegalArgumentException(errorMessage));
-                    throw exception;
-                };
-            }
-        };
+        return p -> getValidatorSupplier(errorMessage, p, predicate.test(p));
     }
 
-    interface ValidatorSupplier<T> extends Supplier<T> {
-        default T validate() {
-            return get();
-        }
-    }
-
-    class ValidationException extends RuntimeException {
-        public ValidationException(String errorMessage) {
-            super(errorMessage);
+    static <T> ValidatorSupplier<T> getValidatorSupplier(String errorMessage, T p, boolean test) {
+        if (test) {
+            return () -> p;
+        } else {
+            return () -> {
+                ValidationException exception = new ValidationException("The object is not valid");
+                exception.addSuppressed(new IllegalArgumentException(errorMessage));
+                throw exception;
+            };
         }
     }
 }

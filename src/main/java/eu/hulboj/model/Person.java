@@ -1,6 +1,6 @@
 package eu.hulboj.model;
 
-import java.util.stream.Stream;
+import java.util.Objects;
 
 public class Person implements IPerson {
 
@@ -48,6 +48,9 @@ public class Person implements IPerson {
 
 	@Override
 	public String toString() {
-		return "Person [name=" + name + ", age=" + age +", health=" + heart.getHealth() +"]";
+		if(Objects.nonNull(heart) ) {
+			return "Person [name=" + name + ", age=" + age + ", health=" + heart.getHealth() + "]";
+		}
+		return "Person [name=" + name + ", age=" + age + "]";
 	}
 }
