@@ -23,20 +23,20 @@ public interface Visitor<R> {
         return obj -> registry.get(obj.getClass()).apply(obj);
     }
 
-    static <R> ConsumerVisitorBuilder<R> build() {
+    static <R> ConsumerVisitorLink<R> build() {
         return rVisitorBuilder -> {/*do nothing*/};
     }
 
     @FunctionalInterface
-    interface ConsumerVisitorBuilder<R> extends Consumer<VisitorLink<R>> {
+    interface ConsumerVisitorLink<R> extends Consumer<VisitorLink<R>> {
         default <T> Helper<T, R> forType(Class<T> type) {
             return index -> index == 0 ? this : type;
         }
 
-        default ConsumerVisitorBuilder<R> andThen(ConsumerVisitorBuilder<R> after) {
-            return rVisitorBuilder -> {
-                this.accept(rVisitorBuilder);
-                after.accept(rVisitorBuilder);
+        default ConsumerVisitorLink<R> andThen(ConsumerVisitorLink<R> after) {
+            return visitorLink -> {
+                this.accept(visitorLink);
+                after.accept(visitorLink);
             };
         }
     }
@@ -49,13 +49,13 @@ public interface Visitor<R> {
             return (Class<T>) get(1);
         }
 
-        default ConsumerVisitorBuilder<R> previousConsumer() {
-            return (ConsumerVisitorBuilder<R>) get(0);
+        default ConsumerVisitorLink<R> previousConsumer() {
+            return (ConsumerVisitorLink<R>) get(0);
         }
 
-        default ConsumerVisitorBuilder<R>  visitation(Function<T, R> function) {
+        default ConsumerVisitorLink<R> visitation(Function<T, R> function) {
             return previousConsumer().andThen(
-                    rVisitorBuilder -> rVisitorBuilder.register(type(), function)
+                    visitorLink -> visitorLink.register(type(), function)
             );
         }
     }
