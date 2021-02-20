@@ -1,8 +1,5 @@
 package dp.singleton;
 
-import common.ISneakyThrower;
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -28,7 +25,6 @@ public interface Singleton<T> {
                 map.put(supplier.get().getClass(), value);
 
         }
-
         return () -> (T) map.get(supplier.get().getClass());
     }
 }
