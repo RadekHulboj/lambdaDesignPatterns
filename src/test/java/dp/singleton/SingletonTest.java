@@ -20,7 +20,7 @@ public class SingletonTest {
     @DisplayName("Tested is a case with one class type - TestedSingletonClass1")
     public void oneCallOfMethodWithOneClassType() {
         // given
-        Singleton<TestedSingletonClass1> of = Singleton.of(TestedSingletonClass1.class);
+        Singleton<TestedSingletonClass1> of = Singleton.of(TestedSingletonClass1::new);
         // when
         TestedSingletonClass1 instance1a = of.instance();
         TestedSingletonClass1 instance1b = of.instance();
@@ -33,8 +33,8 @@ public class SingletonTest {
             "and TestedSingletonClass2, each class type work as singleton")
     public void manyCallOfMethodWithManyClassType() {
         // given
-        Singleton<TestedSingletonClass1> of1 = Singleton.of(TestedSingletonClass1.class);
-        Singleton<TestedSingletonClass2> of2 = Singleton.of(TestedSingletonClass2.class);
+        Singleton<TestedSingletonClass1> of1 = Singleton.of(TestedSingletonClass1::new);
+        Singleton<TestedSingletonClass2> of2 = Singleton.of(TestedSingletonClass2::new);
         // when
         TestedSingletonClass1 instance1a = of1.instance();
         TestedSingletonClass1 instance1b = of1.instance();

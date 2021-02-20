@@ -5,18 +5,18 @@ import dp.singleton.model.SecondObject;
 
 public class MainSingleton {
 
-    private static Singleton<OneObject> oneObjectSingleton = Singleton.of(OneObject.class);
-    private static Singleton<SecondObject> secObjectSingleton = Singleton.of(SecondObject.class);
+    private static Singleton<OneObject> oneObjectSingleton = Singleton.of(OneObject::new);
+    private static Singleton<SecondObject> secObjectSingleton = Singleton.of(SecondObject::new);
 
     public static void main (String[] args)  {
-        oneObjectSingleton = Singleton.of(OneObject.class);
-        oneObjectSingleton = Singleton.of(OneObject.class);
+        oneObjectSingleton = Singleton.of(OneObject::new);
+        oneObjectSingleton = Singleton.of(OneObject::new);
 
         OneObject oneObject1 = oneObjectSingleton.instance();
         OneObject oneObject2 = oneObjectSingleton.instance();
 
-        secObjectSingleton = Singleton.of(SecondObject.class);
-        secObjectSingleton = Singleton.of(SecondObject.class);
+        secObjectSingleton = Singleton.of(SecondObject::new);
+        secObjectSingleton = Singleton.of(SecondObject::new);
 
         SecondObject secObject1 = secObjectSingleton.instance();
         SecondObject secObject2 = secObjectSingleton.instance();
