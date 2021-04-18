@@ -2,7 +2,7 @@ package cookbook.cache;
 
 public class CacheMain {
 
-    static Cache<Integer> cache = Cache.of(CacheMain::supplier);
+    private static Cache<Integer> cache = Cache.of(CacheMain::supplier);
 
     static Integer supplier() {
         System.out.println("Execute only ones");
@@ -13,4 +13,6 @@ public class CacheMain {
         cache.getValue();
         cache.getValue();
     }
+
+
 }

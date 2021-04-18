@@ -10,7 +10,6 @@ public interface Validator<T> {
 
     @FunctionalInterface
     interface ValidatorSupplier<T> extends Supplier<T> {
-
         default void validate() {
             get();
         }
@@ -25,7 +24,8 @@ public interface Validator<T> {
     default Validator<T> thenValidating(Predicate<T> predicate, String errorMessage) {
         return p -> {
             try {
-                on(p).validate();
+                ValidatorSupplier<T> on = on(p);
+                on.validate();
                 return getValidatorSupplier(errorMessage, p, predicate.test(p));
             } catch (ValidationException validationException) {
                 if (predicate.test(p)) {
@@ -37,12 +37,13 @@ public interface Validator<T> {
                     return () -> {
                         throw validationException;
                     };
+
                 }
             }
         };
     }
 
-    static <T> Validator<T> validating(Predicate<T> predicate, String errorMessage) { // v1
+    static <T> Validator<T> validating(Predicate<T> predicate, String errorMessage) {
         return p -> getValidatorSupplier(errorMessage, p, predicate.test(p));
     }
 

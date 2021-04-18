@@ -10,20 +10,17 @@ public interface Singleton<T> {
 
     T instance();
 
-    final class MapSingleton {
+    final class MapSingleton<T> {
         private MapSingleton() {
         }
-
         private static Map<Class<?>, Object> map = new HashMap<>();
     }
 
     static <T> Singleton<T> of(Supplier<T> supplier) {
         Map<Class<?>, Object> map = MapSingleton.map;
-        if (Objects.isNull(map.get(supplier.get().getClass()))) {
-            Object value ;
-                value = supplier.get();
-                map.put(supplier.get().getClass(), value);
-
+        T val = supplier.get();
+        if (Objects.isNull(map.get(val.getClass()))) {
+            map.put(val.getClass(), val);
         }
         return () -> (T) map.get(supplier.get().getClass());
     }
