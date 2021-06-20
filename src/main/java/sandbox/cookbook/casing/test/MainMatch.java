@@ -22,7 +22,7 @@ public class MainMatch {
         A AA = new A();
         B BB = new B();
         A searchValue = BB;
-        Optional<Object> of = Match(searchValue).of(
+        Optional<Object> of = Switcher.Match(searchValue).of(
                 $(AA, MainMatch::b),
                 $(BB, () -> "BB")
         );

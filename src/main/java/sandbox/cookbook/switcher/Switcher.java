@@ -6,11 +6,11 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @FunctionalInterface
-public interface SwitcherCase<T, V> {
-    Supplier<V> switcher(T t1, T t2);
+public interface Switcher<T, V> {
+    Supplier<V> $switch(T t1, T t2);
 
-    static <T,V> SwitcherCase<T, V> of(ConsumerConditioner<T, V> consumer) {
-        Map<PredicateConsumer2<T>, Supplier<V>> map = new HashMap<>();
+    static <T,V> Switcher<T, V> of(ConsumerConditioner<T, V> consumer) {
+        Map<Predicate2<T>, Supplier<V>> map = new HashMap<>();
         consumer.accept(map::put);
         return (t1, t2) ->
             map.entrySet()
@@ -23,21 +23,21 @@ public interface SwitcherCase<T, V> {
 
     interface ConsumerConditioner<T, V> extends Consumer<Conditioner<T, V>> {
         static <T,V> ConsumerConditioner<T, V> build() {
-            return tvConditioner -> {};
+            return conditioner -> {};
         }
-        default ConsumerConditioner<T, V> $case(PredicateConsumer2<T> p, Supplier<V> s) {
-            return tvConditioner -> {
-                accept(tvConditioner);
-                tvConditioner.$case(p, s);
+        default ConsumerConditioner<T, V> $case(Predicate2<T> p, Supplier<V> s) {
+            return conditioner -> {
+                accept(conditioner);
+                conditioner.$case(p, s);
             };
         }
     }
 
     interface Conditioner<T, V> {
-        void $case(PredicateConsumer2<T> p, Supplier<V> s);
+        void $case(Predicate2<T> p, Supplier<V> s);
     }
 
-    interface PredicateConsumer2<T> {
+    interface Predicate2<T> {
         Boolean test(T t1, T t2);
     }
 }
