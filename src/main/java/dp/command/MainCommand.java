@@ -15,8 +15,8 @@ public class MainCommand {
                 Command.<CmdType>createRegister()
                 .register(CmdType.COPY, new MainCommand()::copyExecution)
                 .register(CmdType.UNDO, MainCommand::deleteExecution)
-                .register(CmdType.DELETE, cmd -> System.out.println(cmd.toString()))
-                .register(CmdType.UPDATE, cmd -> System.out.println(cmd.toString()))
+//                .register(CmdType.DELETE, cmd -> System.out.println(cmd.toString()))
+//                .register(CmdType.UPDATE, cmd -> System.out.println(cmd.toString()))
         );
 
         command.execute(CmdType.COPY);

@@ -14,10 +14,10 @@ public class MainMatch {
 
     public static void main(String[] args) {
         String DWA = "2";
-        String searchValue = "2";
+        String searchValue = "1";
         Optional<Object> of = Match(searchValue).of(
                 $(DWA, MainMatch::b),
-                $("1", () -> "dwa")
+                $("1", () -> 2)
                 );
         System.out.println(of.get());
 

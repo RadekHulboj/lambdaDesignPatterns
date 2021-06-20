@@ -9,7 +9,7 @@ public interface Command<T> {
 
     void execute(T type);
 
-    static <T> Command<T> of(Consumer<CommandRegister<T>> consumerCommandRegister) {
+    static <T> Command<T> of(ConsumerCommandRegister<T> consumerCommandRegister) {
         Map<T, Command<T>> map = new HashMap<>();
         consumerCommandRegister.accept(map::put);
         return type -> map.get(type).execute(type);

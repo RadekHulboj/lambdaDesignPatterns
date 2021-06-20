@@ -12,7 +12,7 @@ interface Function1<X, O> {
     }
 
     static void main(String[] args) {
-        Function1<Integer, String> fun1 =  Function1.of(() -> "Polska");
+        Function1<Long, String> fun1 =  Function1.of(() -> "Polska");
 
     }
 }
