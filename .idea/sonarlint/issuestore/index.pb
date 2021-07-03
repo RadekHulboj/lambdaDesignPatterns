@@ -112,3 +112,11 @@ Y
 )src/test/java/dp/command/CommandTest.java,4\8\4856f153cacfb11e52c485b5b955342a2221bd8e
 ]
 -src/main/java/sandbox/cookbook/pair/Pair.java,e\9\e9251fc642b4c9309b1aef6bcb400c65354c95f8
+e
+5src/main/java/sandbox/cookbook/switcher/Switcher.java,4\a\4a4e9535f28bc77556486ed9b7a7796607bff895
+i
+9src/main/java/sandbox/cookbook/switcher/MainSwitcher.java,3\7\3797484d4ce900ed7ecb79f6da7c67df41d9fe50
+d
+4src/main/java/sandbox/cookbook/presentation/Sam.java,7\4\7428927c4344ce71e38caf8c9d32d90388bf642a
+g
+7src/main/java/sandbox/cookbook/presentation/Stream.java,e\d\ed46fc20179847fa4878a51ab6a6e68fb158052f

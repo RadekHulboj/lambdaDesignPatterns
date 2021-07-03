@@ -4,24 +4,19 @@ public class MainCommand {
 
     enum CmdType {
         COPY,
-        DELETE,
-        UPDATE,
         UNDO
     }
 
     public static void main(String[] args) {
 
-        Command<CmdType> command = Command.of(
+        Command.ConsumerCommandRegister<CmdType> register =
                 Command.<CmdType>createRegister()
                 .register(CmdType.COPY, new MainCommand()::copyExecution)
-                .register(CmdType.UNDO, MainCommand::deleteExecution)
-//                .register(CmdType.DELETE, cmd -> System.out.println(cmd.toString()))
-//                .register(CmdType.UPDATE, cmd -> System.out.println(cmd.toString()))
-        );
+                .register(CmdType.UNDO, MainCommand::deleteExecution);
+
+        Command<CmdType> command = Command.of(register);
 
         command.execute(CmdType.COPY);
-        command.execute(CmdType.DELETE);
-        command.execute(CmdType.UPDATE);
         command.execute(CmdType.UNDO);
     }
 
