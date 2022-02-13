@@ -21,42 +21,33 @@ public interface Validator<T> {
         }
     }
 
-    default Validator<T> thenValidating(Predicate<T> predicate, String errorMessage) {
+    default Validator<T> then(Predicate<T> predicate, String errorMessage) {
         return p -> {
             try {
-                ValidatorSupplier<T> on = on(p);
-                on.validate();
+                on(p).validate();
                 return getValidatorSupplier(errorMessage, p, predicate.test(p));
             } catch (ValidationException validationException) {
-                if (predicate.test(p)) {
-                    return () -> {
-                        throw validationException;
-                    };
-                } else {
+                if (!predicate.test(p)) {
                     validationException.addSuppressed(new IllegalArgumentException(errorMessage));
-                    return () -> {
-                        throw validationException;
-                    };
-
                 }
+                return () -> {
+                    throw validationException;
+                };
             }
         };
     }
 
-    static <T> Validator<T> validating(Predicate<T> predicate, String errorMessage) {
+    static <T> Validator<T> validator(Predicate<T> predicate, String errorMessage) {
         return p -> getValidatorSupplier(errorMessage, p, predicate.test(p));
     }
 
     static <T> ValidatorSupplier<T> getValidatorSupplier(String errorMessage, T p, boolean test) {
         if (test) {
             return () -> p;
-        } else {
-            return () -> {
-                ValidationException exception = new ValidationException("The object is not valid");
-                exception.addSuppressed(new IllegalArgumentException(errorMessage));
-                throw exception;
-            };
         }
+        ValidationException validationException = new ValidationException("The object is not valid by:");
+        validationException.addSuppressed(new IllegalArgumentException(errorMessage));
+        throw validationException;
     }
 }
 
