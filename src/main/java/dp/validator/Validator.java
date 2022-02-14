@@ -21,11 +21,11 @@ public interface Validator<T> {
         }
     }
 
-    default Validator<T> then(Predicate<T> predicate, String errorMessage) {
+    default Validator<T> match(Predicate<T> predicate, String errorMessage) {
         return p -> {
             try {
                 on(p).validate();
-                return getValidatorSupplier(errorMessage, p, predicate.test(p));
+                return getValidatorSupplier(p, predicate.test(p));
             } catch (ValidationException validationException) {
                 if (!predicate.test(p)) {
                     validationException.addSuppressed(new IllegalArgumentException(errorMessage));
@@ -37,17 +37,15 @@ public interface Validator<T> {
         };
     }
 
-    static <T> Validator<T> validator(Predicate<T> predicate, String errorMessage) {
-        return p -> getValidatorSupplier(errorMessage, p, predicate.test(p));
+    static <T> Validator<T> create() {
+        return p -> () -> p;
     }
 
-    static <T> ValidatorSupplier<T> getValidatorSupplier(String errorMessage, T p, boolean test) {
+    static <T> ValidatorSupplier<T> getValidatorSupplier(T p, boolean test) {
         if (test) {
             return () -> p;
         }
-        ValidationException validationException = new ValidationException("The object is not valid by:");
-        validationException.addSuppressed(new IllegalArgumentException(errorMessage));
-        throw validationException;
+        throw new ValidationException("The object is not valid by:");
     }
 }
 
