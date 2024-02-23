@@ -13,4 +13,10 @@ public final class Cat {
     public static Cat build(CatBuilder catBuilder ) {
         return new Cat(catBuilder.getAge(), catBuilder.getName());
     }
+    public int getAge() {
+        return age;
+    }
+    public String getName() {
+        return name;
+    }
 }
