@@ -1,5 +1,7 @@
 package dp.builder.nosetters;
 
+import dp.builder.IBuilder;
+
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -20,8 +22,15 @@ interface ICatBuilder<I extends ICatBuilder.CatBuilder, C extends Cat> {
         public void setName(String name) {
             this.name = name;
         }
+        public void setName(String name1, String name2) {
+            this.name = name1 + name2;
+        }
     }
     Supplier<I> supplier();
+    @FunctionalInterface
+    interface TriConsumer<I extends ICatBuilder.CatBuilder, P1, P2> {
+        void accept (I inst, P1 param1, P2 param2);
+    }
     static <S extends CatBuilder, K extends Cat> ICatBuilder<S, K> of() {
         return () -> (Supplier<S>) ICatBuilder.of(CatBuilder::new).supplier();
     }
@@ -32,6 +41,13 @@ interface ICatBuilder<I extends ICatBuilder.CatBuilder, C extends Cat> {
         return () -> () -> {
             I inst = supplier().get();
             biConsumer.accept(inst, v);
+            return inst;
+        };
+    }
+    default <V1, V2> ICatBuilder<I, C> with(IBuilder.TriConsumer<I, V1, V2> triConsumer, V1 v1, V2 v2) {
+        return () -> () -> {
+            I inst = supplier().get();
+            triConsumer.accept(inst, v1, v2);
             return inst;
         };
     }

@@ -6,6 +6,7 @@ public class MainCatBuilder {
         Cat cat = ICatBuilder.of()
                 .with(CatBuilder::setAge, 1)
                 .with(CatBuilder::setName, "ra")
+                .with(CatBuilder::setName, "ra", "dek")
                 .build();
     }
 }
