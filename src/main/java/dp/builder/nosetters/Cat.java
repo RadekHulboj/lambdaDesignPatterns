@@ -1,6 +1,6 @@
 package dp.builder.nosetters;
 /*the case when we want have to have final variables*/
-public class Cat {
+public final class Cat {
     private final int age;
     private final String name;
     private Cat(int age, String name) {
