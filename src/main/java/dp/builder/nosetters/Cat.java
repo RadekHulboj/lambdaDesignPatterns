@@ -1,4 +1,7 @@
 package dp.builder.nosetters;
+
+import dp.builder.nosetters.ICatBuilder.CatBuilder;
+
 /*the case when we want have to have final variables*/
 public final class Cat {
     private final int age;
