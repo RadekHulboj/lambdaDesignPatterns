@@ -31,12 +31,6 @@ interface ICatBuilder<I extends ICatBuilder.CatBuilder, C extends Cat> {
     interface TriConsumer<I extends ICatBuilder.CatBuilder, P1, P2> {
         void accept (I inst, P1 param1, P2 param2);
     }
-    static <S extends CatBuilder, K extends Cat> ICatBuilder<S, K> of() {
-        return () -> (Supplier<S>) ICatBuilder.of(CatBuilder::new).supplier();
-    }
-    static <S extends CatBuilder, C extends Cat> ICatBuilder<S, C> of(Supplier<S> instance) {
-        return () -> instance;
-    }
     default <V> ICatBuilder<I, C> with(BiConsumer<I, V> biConsumer, V v) {
         return () -> () -> {
             I inst = supplier().get();
@@ -51,7 +45,13 @@ interface ICatBuilder<I extends ICatBuilder.CatBuilder, C extends Cat> {
             return inst;
         };
     }
+    static <S extends CatBuilder, C extends Cat> ICatBuilder<S, C> of(Supplier<S> instance) {
+        return () -> instance;
+    }
     default C build() {
         return (C) Cat.build(supplier().get());
+    }
+    static <S extends CatBuilder, K extends Cat> ICatBuilder<S, K> of() {
+        return () -> (Supplier<S>) ICatBuilder.of(CatBuilder::new).supplier();
     }
 }
