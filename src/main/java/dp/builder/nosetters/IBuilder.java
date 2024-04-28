@@ -3,6 +3,7 @@ package dp.builder.nosetters;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @FunctionalInterface
@@ -50,7 +51,11 @@ interface IBuilder<I, C> {
         };
     }
 
-    default C build(Class<C> targetCls, Class<I> builderCls) {
+    default C buildWithReflection(Class<C> targetCls, Class<I> builderCls) {
         return IResult.build(targetCls, builderCls, supplier().get());
+    }
+
+    default C build(Function<I, C> function) {
+        return function.apply(supplier().get());
     }
 }
