@@ -11,12 +11,15 @@ interface IBuilder<I, C> {
     Supplier<I> supplier();
 
     interface IResult {
-        static <I, B> I build(Class<I> clazzI, Class<B> clazzB, B builder ) {
+        static <I, B> I build(Class<I> clazzI, Class<B> clazzB, B builder) {
             try {
                 Constructor<I> declaredConstructor = clazzI.getDeclaredConstructor(clazzB);
                 declaredConstructor.setAccessible(true);
                 return declaredConstructor.newInstance(builder);
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            } catch (InstantiationException
+                     | IllegalAccessException
+                     | InvocationTargetException
+                     | NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
         }
