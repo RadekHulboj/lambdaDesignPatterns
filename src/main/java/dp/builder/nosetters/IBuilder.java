@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 @FunctionalInterface
 interface IBuilder<I, C> {
 
-    Supplier<I> supplier();
+    Supplier<I> instance();
 
     interface IResult {
         static <I, B> I build(Class<I> clazzI, Class<B> clazzB, B builder) {
@@ -37,7 +37,7 @@ interface IBuilder<I, C> {
 
     default <V> IBuilder<I, C> with(BiConsumer<I, V> biConsumer, V v) {
         return () -> () -> {
-            I inst = supplier().get();
+            I inst = instance().get();
             biConsumer.accept(inst, v);
             return inst;
         };
@@ -45,17 +45,17 @@ interface IBuilder<I, C> {
 
     default <V1, V2> IBuilder<I, C> with(dp.builder.IBuilder.TriConsumer<I, V1, V2> triConsumer, V1 v1, V2 v2) {
         return () -> () -> {
-            I inst = supplier().get();
+            I inst = instance().get();
             triConsumer.accept(inst, v1, v2);
             return inst;
         };
     }
 
     default C buildWithReflection(Class<C> targetCls, Class<I> builderCls) {
-        return IResult.build(targetCls, builderCls, supplier().get());
+        return IResult.build(targetCls, builderCls, instance().get());
     }
 
     default C build(Function<I, C> function) {
-        return function.apply(supplier().get());
+        return function.apply(instance().get());
     }
 }
