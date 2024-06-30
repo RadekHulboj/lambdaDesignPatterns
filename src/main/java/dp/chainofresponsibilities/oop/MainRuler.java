@@ -7,6 +7,6 @@ public class MainRuler {
     public static void main(String... args) {
         ReportableRule reportableRule = new ReportableRule();
         EligibilityRule eligibilityRule = new EligibilityRule();
-        List<AbstractRule> check = AbstractRule.check(Arrays.asList(reportableRule, eligibilityRule), 44445L);
+        List<IRule> check = IRule.check(Arrays.asList(reportableRule, eligibilityRule), 44445L);
     }
 }

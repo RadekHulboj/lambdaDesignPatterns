@@ -1,6 +1,6 @@
 package dp.chainofresponsibilities.functional;
 
-import dp.chainofresponsibilities.oop.AbstractRule;
+import dp.chainofresponsibilities.oop.IRule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public interface ChainOfRes<R extends AbstractRule<V>, V> {
+public interface ChainOfRes<R extends IRule<V>, V> {
     List<R> checkChain(V value);
 
-    static <R extends AbstractRule<V>, V> ChainOfRes<R, V> init() {
+    static <R extends IRule<V>, V> ChainOfRes<R, V> init() {
         return value -> new ArrayList<R>();
     }
 

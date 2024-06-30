@@ -1,5 +1,5 @@
 package dp.chainofresponsibilities.oop;
-public class ReportableRule implements AbstractRule<Long> {
+public class ReportableRule implements IRule<Long> {
     private static final Long REPORTABLE_LIMIT = 3000L;
     @Override
     public Boolean isValid(Long value) {
