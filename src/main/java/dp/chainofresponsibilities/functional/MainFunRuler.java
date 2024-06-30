@@ -12,5 +12,10 @@ public class MainFunRuler {
                 .addRule(EligibilityRule::new)
                 .addRule(ReportableRule::new)
                 .checkChain(5L);
+
+        List<IRule<Long>> iRules = dp.chainofresponsibilities.functional.paper.ChainOfRes.<IRule<Long>, Long>init()
+                .addRule(EligibilityRule::new)
+                .addRule(ReportableRule::new)
+                .checkWithValue(5L);
     }
 }
