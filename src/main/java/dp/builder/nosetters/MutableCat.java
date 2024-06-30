@@ -1,6 +1,6 @@
 package dp.builder.nosetters;
 
-class CatBuilder {
+class MutableCat {
     private int age;
     private String name;
     public int getAge() {

@@ -4,11 +4,11 @@ package dp.builder.nosetters;
 public final class Cat {
     private final int age;
     private final String name;
-    private Cat(CatBuilder catBuilder) {
+    private Cat(MutableCat catBuilder) {
         this.age = catBuilder.getAge();
         this.name = catBuilder.getName();
     }
-    public static Cat build(CatBuilder catBuilder ) {
+    public static Cat build(MutableCat catBuilder ) {
         return new Cat(catBuilder);
     }
     public int getAge() {
