@@ -11,23 +11,28 @@ public interface Command<T> {
     void execute(T cmd);
 
     static <T> Command<T> of(ConsumerCommandConsumer<T> consumer) {
-        Map<T, Consumer<T>> map = new HashMap<>();
+        Map<T, Executor> map = new HashMap<>();
         consumer.accept(map::put);
-        return cmd -> map.get(cmd).accept(cmd);
+        return cmd -> map.get(cmd).proceed();
     }
 
     @FunctionalInterface
-    interface CommandRegister<T> extends BiConsumer<T, Consumer<T>>  {
-        default void takeParams(T cmd, Consumer<T> consumer) {
-            accept(cmd, consumer);
+    interface Executor {
+        void proceed();
+    }
+
+    @FunctionalInterface
+    interface CommandRegister<T> extends BiConsumer<T, Executor>  {
+        default void takeParams(T cmd, Executor executor) {
+            accept(cmd, executor);
         }
     }
     @FunctionalInterface
     interface ConsumerCommandConsumer<T> extends Consumer<CommandRegister<T>> {
-        default ConsumerCommandConsumer<T> register(T cmd, Consumer<T> consumer) {
+        default ConsumerCommandConsumer<T> register(T cmd, Executor executor) {
             return cmdRegister -> {
                 accept(cmdRegister);
-                cmdRegister.takeParams(cmd, consumer);
+                cmdRegister.takeParams(cmd, executor);
             };
         }
 

@@ -6,10 +6,10 @@ public class MainPaper {
         DELETE,
     }
 
-    public static void main (String... args) {
+    public static void main(String... args) {
         Command.ConsumerCommandConsumer<CmdType> register = Command.ConsumerCommandConsumer.<CmdType>init()
-                .register(CmdType.NEW, cmdType -> System.out.println(cmdType.toString()))
-                .register(CmdType.DELETE, cmdType -> System.out.println(cmdType.toString()));
+                .register(CmdType.NEW, () -> System.out.println("NEW"))
+                .register(CmdType.DELETE, () -> System.out.println("DELETE"));
 
         Command<CmdType> command = Command.of(register);
         command.execute(CmdType.DELETE);
